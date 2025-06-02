@@ -1,11 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revisão Matriz</title>
 </head>
+<style>
+    .container {
+        background-color: blue;
+        width: 250px;
+        display: grid;
+        text-align: center;
+        grid-template-columns: repeat(3, 1fr);
+        justify-items: center;
+    }
+
+    .item {
+        background-color: red;
+        width: 50px;
+        margin: 5px;
+    }
+</style>
+
 <body>
-    
+    <div class="container" id="div_matriz">
+        <!-- <div class="item">X</div> -->
+    </div>
+
+    <button onclick="montarMatriz()"> Montar Matriz </button>
+
+    <br>
+
+    <input type="text" id="ipt_linha" placeholder="LINHA">
+    <input type="text" id="ipt_coluna" placeholder="COLUNA">
+
+    <button onclick="consultarMatriz()"> Consultar </button>
+    <div id="resposta"></div>
+
+    <br>
+
+    <button onclick="somarLinha()"> Somar valores da linha </button>
+    <button onclick="somarColuna()"> Somar valores da coluna </button>
+    <div id="resultado"></div>
+
+
 </body>
+<script>
+
+    let minhaMatriz = []
+
+    function montarMatriz() {
+
+        let qtdLinhas = 3
+        let qtdColunas = 3
+        let matriz = ''
+
+        let valorInicial = 5
+
+        for (let linha = 0; linha < qtdLinhas; linha++) {
+            minhaMatriz[linha] = []
+            for (let coluna = 0; coluna < qtdColunas; coluna++) {
+                minhaMatriz[linha][coluna] = valorInicial
+                valorInicial += 5
+
+                matriz += `<div class="item">${minhaMatriz[linha][coluna]}</div>`
+            }
+        }
+
+        console.log(minhaMatriz);
+        div_matriz.innerHTML = matriz
+    }
+
+    function consultarMatriz() {
+        let linha = Number(ipt_linha.value)
+        let coluna = Number(ipt_coluna.value)
+        let valor = minhaMatriz[linha][coluna]
+
+        resposta.innerHTML = `O valor da linha ${linha} e da coluna ${coluna} é: ${valor}`
+
+    }
+
+    function somarLinha(){
+        let linhaDigitada = Number(ipt_linha.value)
+        let valorSoma = 0
+
+        for (let i = 0; i < minhaMatriz[linhaDigitada].length; i++){
+            valorSoma += minhaMatriz[linhaDigitada - 1][i]
+        }
+
+        resultado.innerHTML = `A soma da linha ${linhaDigitada} é: ${valorSoma}`
+    }
+
+    function somarColuna(){
+        let colunaDigitada = Number(ipt_coluna.value)
+        let valorSomaColuna = 0
+
+        for (var i = 0; i < minhaMatriz.length; i++){
+            valorSomaColuna += minhaMatriz[i][colunaDigitada - 1]
+        }
+
+        resultado.innerHTML = `A soma da coluna ${colunaDigitada} é: ${valorSomaColuna}`
+    }
+</script>
+
 </html>
